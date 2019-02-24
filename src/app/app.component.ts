@@ -14,30 +14,20 @@ export class AppComponent implements OnInit {
     private mediaObserver: MediaObserver
   ) { }
 
-  // async ngOnInit() {
-  //   let active = this.mediaObserver.isActive('xs');
-  //   console.log(active); // always false
+  async ngOnInit() {
+    let active = this.mediaObserver.isActive('xs');
+    console.log(active); // always false
 
-  //   active = await this.mediaObserver.media$.pipe(take(1), map(media => media.mqAlias === 'xs')).toPromise();
-  //   console.log(active); // true
+    // workaround solution :
+    // active = await this.mediaObserver.media$.pipe(take(1), map(media => media.mqAlias === 'xs')).toPromise();
+    // console.log(active); // true
 
-  //   this.mediaObserver.media$.subscribe((v) => {
-  //     if (v.mqAlias === 'xs') {
-  //       active = this.mediaObserver.isActive('xs');
-  //       console.log(active);  // true
-  //     }
-  //   });
-  // }
-
-ngOnInit() {
-  let active = this.mediaObserver.isActive('xs');
-  console.log(active); // always false
-
-  this.mediaObserver.media$.subscribe((v) => {
-    if (v.mqAlias === 'xs') {
-      active = this.mediaObserver.isActive('xs');
-      console.log(active);  // true
-    }
-  });
-}
+    this.mediaObserver.media$.subscribe((v) => {
+      if (v.mqAlias === 'xs') {
+        active = this.mediaObserver.isActive('xs');
+        console.log(active);  // true
+      }
+    });
+  }
+ 
 }
